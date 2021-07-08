@@ -14,7 +14,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // TODO: add register logic !!!
   onSubmit(f: NgForm) {
 
     const registerObserver = {

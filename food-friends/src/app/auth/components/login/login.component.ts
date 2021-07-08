@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthServiceService } from '../../auth-service.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { AuthServiceService } from '../../auth-service.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthServiceService) { }
+  constructor(private authService: AuthServiceService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -17,11 +18,15 @@ export class LoginComponent implements OnInit {
   onSubmit(f: NgForm) {
 
     const loginObserver = {
-      next: (x: any) => console.log(f.value.username, ' logged in' ),
+      next: (x: any) => {
+        console.log(f.value.username, ' logged in' );
+        this.router.navigate(['/user-profile']);
+      },
       error: (err: any) => console.log(err)
     }
 
     this.authService.login(f.value).subscribe(loginObserver);
+
   }
 
 }

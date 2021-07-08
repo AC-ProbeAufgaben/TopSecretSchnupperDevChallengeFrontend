@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3 mt-4">
+        <h3>Welcome, {{usersName}}</h3>
+
+        <ul>
+            <li> email: <b>{{userModel?.email}}</b></li>
+            <li> password: <b>{{userModel?.password}}</b></li>
+            <li> role: <b>{{userModel?.role}}</b></li>
+            <li *ngIf='userModel?.favFoods?.length'> favorite foods: 
+                <div *ngFor='let food of userModel?.favFoods; let i = index'>
+                    {{i+1}}. <b>{{food.name}}</b>
+                </div>
+            </li>
+            
+        </ul>
+        
+        <button routerLink='/user-edit' routerLinkActive='active' class="btn btn-secondary">Edit Profile <i class="fa fa-edit" aria-hidden="true"></i>
+        </button>
+   
+    </div>
+</div>
+

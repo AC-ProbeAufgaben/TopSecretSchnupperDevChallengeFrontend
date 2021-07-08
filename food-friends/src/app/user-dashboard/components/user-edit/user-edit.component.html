@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3 mt-4">
+    <h3>Edit User Profile</h3>
+    <button (click)="onClickUpdatePassword()" class="btn btn-secondary" >Change Password <i class="fa fa-user-o" aria-hidden="true"></i>
+    </button>
+    <br>
+    <br>
+    <form *ngIf="clickedUpdate" id="updatePasswordForm" [formGroup]="updatePasswordForm" (ngSubmit)="onSubmit()"> 
+
+      <div class="form-group" style="margin-bottom: 10px;">
+        
+        <input type="password" name="oldPassword" 
+          class="form-control" id="oldPassword" placeholder="Current Password" formControlName="oldPassword">
+          <!-- <span *ngIf="oldPassword.hasError('required')">Current Password Required</span> -->
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px;">
+
+        <input type="password" name="newPassword" 
+          class="form-control" id="newPassword" placeholder="New Password" formControlName="newPassword">
+          <!-- <span *ngIf="newPassword.hasError('required')">New Password Required</span> -->
+      </div>
+      <div class="form-group" style="margin-bottom: 10px;">
+
+        <input type="password" name="confirmPassword" 
+          class="form-control" id="confirmPassword" placeholder="Confirm New Password" formControlName="confirmPassword">
+          <span *ngIf="confirmPassword.hasError('required')" class="badge bg-light text-dark">Please Confirm Password</span>
+          <span *ngIf="confirmPassword.errors?.mustMatch" class="badge bg-warning">Passwords do not match</span>
+
+      </div>
+      
+      <button type="submit" class="btn btn-primary" [disabled]="updatePasswordForm?.invalid">Update Password <i class="fa fa-user-o" aria-hidden="true"></i>
+      </button>
+
+      <span *ngIf="isUpdated"><br>{{updateText}}</span> 
+      <br><br>
+
+    </form>
+
+    
+
+    <form id="updateUserInfoForm" [formGroup]="updateUserInfoForm" (ngSubmit)="updateUserInfo()">
+      <div class="form-group" style="margin-bottom: 10px;">
+        <label>Email</label>
+        <input type="email" name="email" 
+          class="form-control" id="email" formControlName="email">
+          <span *ngIf="email.hasError('required')">Email Required</span>
+          
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px;">
+        <label>First Name</label>
+        <input type="text" name="name" 
+          class="form-control" id="name" placeholder="Enter New First Name" formControlName="name">
+          <span *ngIf="name.hasError('required')">Field Required</span>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px;">
+        <label>Last Name</label>
+        <input type="text" name="lastName" 
+          class="form-control" id="lastName" placeholder="Enter New Last Name" formControlName="lastName">
+          <span *ngIf="lastName.hasError('required')">Field Required</span>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px;">
+        <label>Favorite Foods</label>
+        <input type="text" name="favFoodsList" 
+          class="form-control" id="favFoodsList" placeholder="favFoodsList" formControlName="favFoodsList">
+          <span *ngIf="!favFoodsList.errors" class="badge bg-light text-dark">enter foods seperated by a comma</span>
+          <span *ngIf="favFoodsList.errors?.maxlength" class="badge bg-warning text-dark" >Too Long </span>
+
+      </div>
+      
+      <button type="submit" class="btn btn-secondary" [disabled]="updateUserInfoForm?.invalid">Update User Info <i class="fa fa-user-o" aria-hidden="true"></i>
+      </button>
+
+      <div *ngIf="userInfoIsUpdated">{{userInfoUpdateText}}</div> 
+
+    </form>
+
+  </div>
+</div>

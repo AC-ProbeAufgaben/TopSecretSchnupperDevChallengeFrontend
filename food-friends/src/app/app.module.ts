@@ -4,6 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { UserDashboardModule } from './user-dashboard/user-dashboard.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptTokenService } from './auth/token-intercepter/intercept-token.service';
+import { AuthGuard } from './auth/guard/authguard.service';
+import { FormBuilder, FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -11,10 +19,17 @@ import { AuthModule } from './auth/auth.module';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
-    AuthModule
+    AuthModule,
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
+    UserDashboardModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptTokenService, multi: true },
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
