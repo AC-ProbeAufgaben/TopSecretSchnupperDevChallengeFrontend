@@ -3,5 +3,5 @@ export class FoodFriendsDto {
     lastName: string = '';
     email: string = '';
     password: string = '';
-    favFoodsList?: '';
+    favFoodsList?: '' | string[];
 }

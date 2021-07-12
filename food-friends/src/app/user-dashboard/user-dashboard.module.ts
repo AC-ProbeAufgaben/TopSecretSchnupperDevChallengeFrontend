@@ -5,8 +5,14 @@ import { UserDashboardRoutingModule } from './user-dashboard-routing.module';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCommonModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -17,7 +23,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     UserDashboardRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatCommonModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule
   ],
   exports: [UserEditComponent]
 })

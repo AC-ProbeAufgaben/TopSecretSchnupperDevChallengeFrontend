@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { UserDashboardModule } from './user-dashboard/user-dashboard.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -23,6 +23,7 @@ import { FormBuilder, FormsModule } from '@angular/forms';
     AppRoutingModule,
     AuthModule,
     BrowserAnimationsModule,
+    NoopAnimationsModule,
     BsDropdownModule.forRoot(),
     UserDashboardModule
   ],

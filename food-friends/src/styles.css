@@ -1,10 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~font-awesome/css/font-awesome.min.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 body {
     margin: 10px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.navbar-nav > li > .dropdown-menu { background-color: #686767; }
+
 
 .ng-valid[required], .ng-valid.required {
     border-left: 3px solid cornflowerblue;
@@ -13,3 +18,5 @@ body {
 .ng-invalid:not(form) {
     border-left: 3px solid red;
 }
+html, body { height: 100%; }
+

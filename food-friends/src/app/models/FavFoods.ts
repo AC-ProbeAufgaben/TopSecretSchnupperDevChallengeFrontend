@@ -1,4 +1,4 @@
 export class FavFoods {
-    id: number | undefined;
-    name: string | undefined;
+    id: number = 0;
+    name: string = '';
 }

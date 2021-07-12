@@ -1,81 +1,100 @@
 <div class="row">
-  <div class="col-md-6 offset-md-3 mt-4">
+  <div class="col-md-5 offset-md-3 mt-4">
     <h3>Edit User Profile</h3>
-    <button (click)="onClickUpdatePassword()" class="btn btn-secondary" >Change Password <i class="fa fa-user-o" aria-hidden="true"></i>
-    </button>
-    <br>
-    <br>
-    <form *ngIf="clickedUpdate" id="updatePasswordForm" [formGroup]="updatePasswordForm" (ngSubmit)="onSubmit()"> 
-
-      <div class="form-group" style="margin-bottom: 10px;">
-        
-        <input type="password" name="oldPassword" 
-          class="form-control" id="oldPassword" placeholder="Current Password" formControlName="oldPassword">
-          <!-- <span *ngIf="oldPassword.hasError('required')">Current Password Required</span> -->
-      </div>
-
-      <div class="form-group" style="margin-bottom: 10px;">
-
-        <input type="password" name="newPassword" 
-          class="form-control" id="newPassword" placeholder="New Password" formControlName="newPassword">
-          <!-- <span *ngIf="newPassword.hasError('required')">New Password Required</span> -->
-      </div>
-      <div class="form-group" style="margin-bottom: 10px;">
-
-        <input type="password" name="confirmPassword" 
-          class="form-control" id="confirmPassword" placeholder="Confirm New Password" formControlName="confirmPassword">
-          <span *ngIf="confirmPassword.hasError('required')" class="badge bg-light text-dark">Please Confirm Password</span>
-          <span *ngIf="confirmPassword.errors?.mustMatch" class="badge bg-warning">Passwords do not match</span>
-
-      </div>
-      
-      <button type="submit" class="btn btn-primary" [disabled]="updatePasswordForm?.invalid">Update Password <i class="fa fa-user-o" aria-hidden="true"></i>
+    <div style="margin-bottom: 10px;">
+      <button (click)="onClickUpdatePassword()"  id="updatePassButton" class="btn btn-secondary">{{changePassText}}<i id="lockIcon" class="fa fa-lock" aria-hidden="true"></i>
       </button>
+  </div>
+  
 
-      <span *ngIf="isUpdated"><br>{{updateText}}</span> 
-      <br><br>
-
-    </form>
-
-    
-
-    <form id="updateUserInfoForm" [formGroup]="updateUserInfoForm" (ngSubmit)="updateUserInfo()">
-      <div class="form-group" style="margin-bottom: 10px;">
-        <label>Email</label>
+    <form id="updateUserInfoForm" [formGroup]="updateUserInfoForm" (ngSubmit)="onSubmit()">
+      <div class="form-group row mb-3" style="margin-bottom: 10px;">
+        <label class="col-sm-2 col-form-label-sm">Email</label>
+        <div class="col-sm-10">
         <input type="email" name="email" 
           class="form-control" id="email" formControlName="email">
           <span *ngIf="email.hasError('required')">Email Required</span>
-          
+        </div>
       </div>
 
-      <div class="form-group" style="margin-bottom: 10px;">
-        <label>First Name</label>
+      <div class="form-group row mb-3" style="margin-bottom: 10px;">
+        <label class="col-sm-2 col-form-label-sm">First Name</label>
+        <div class="col-sm-10">
         <input type="text" name="name" 
           class="form-control" id="name" placeholder="Enter New First Name" formControlName="name">
           <span *ngIf="name.hasError('required')">Field Required</span>
+        </div>
       </div>
 
-      <div class="form-group" style="margin-bottom: 10px;">
-        <label>Last Name</label>
+      <div class="form-group row mb-3" style="margin-bottom: 10px;">
+        <label class="col-sm-2 col-form-label-sm">Last Name</label>
+        <div class="col-sm-10">
         <input type="text" name="lastName" 
           class="form-control" id="lastName" placeholder="Enter New Last Name" formControlName="lastName">
           <span *ngIf="lastName.hasError('required')">Field Required</span>
+        </div>
       </div>
 
-      <div class="form-group" style="margin-bottom: 10px;">
-        <label>Favorite Foods</label>
-        <input type="text" name="favFoodsList" 
-          class="form-control" id="favFoodsList" placeholder="favFoodsList" formControlName="favFoodsList">
-          <span *ngIf="!favFoodsList.errors" class="badge bg-light text-dark">enter foods seperated by a comma</span>
-          <span *ngIf="favFoodsList.errors?.maxlength" class="badge bg-warning text-dark" >Too Long </span>
-
+      <div class="form-group row mb-3" style="margin-bottom: 10px;">
+        <label class="col-sm-2 col-form-label-sm" style="margin-top: 12px;">Favorite Foods</label>
+        <div class="col-sm-10">
+        <mat-form-field class="example-chip-list" appearance="legacy" >
+          <mat-chip-list #chipList aria-label="Food selection" >
+            <mat-chip *ngFor="let food of foods" [selectable]="selectable"
+                    [removable]="removable" (removed)="remove(food)" >
+              {{food.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+          <mat-hint>type a food and press "return"!</mat-hint>
+        </mat-form-field>
       </div>
-      
-      <button type="submit" class="btn btn-secondary" [disabled]="updateUserInfoForm?.invalid">Update User Info <i class="fa fa-user-o" aria-hidden="true"></i>
-      </button>
+    </div>    
+    
 
-      <div *ngIf="userInfoIsUpdated">{{userInfoUpdateText}}</div> 
+    <form *ngIf="clickedUpdate" id="updatePasswordForm" [formGroup]="updatePasswordForm"> 
+     
+      <div class="form-group row mb-3" style="margin-bottom: 10px;">
+        <label class="col-sm-2 col-form-label-sm">Current</label>
+        <div class="col-sm-10">
+        <input type="password" name="oldPassword" 
+          class="form-control" id="oldPassword" placeholder="Current Password" formControlName="oldPassword">
+          <!-- <span *ngIf="oldPassword.hasError('required')">Current Password Required</span> -->
+        </div>
+      </div>
 
+      <div class="form-group row mb-3" style="margin-bottom: 10px;">
+        <label class="col-sm-2 col-form-label-sm">New </label>
+        <div class="col-sm-10">
+        <input type="password" name="newPassword" 
+          class="form-control" id="newPassword" placeholder="New Password" formControlName="newPassword">
+          <!-- <span *ngIf="newPassword.hasError('required')">New Password Required</span> -->
+        </div>
+      </div>
+
+     <div class="form-group row mb-3" style="margin-bottom: 10px;">
+        <label class="col-sm-2 col-form-label-sm">Confirm </label>
+        <div class="col-sm-10">
+          <input type="password" name="confirmPassword" 
+            class="form-control" id="confirmPassword" placeholder="Confirm New Password" formControlName="confirmPassword">
+            <span *ngIf="confirmPassword.hasError('required')" class="badge bg-light text-dark">Please Confirm Password</span>
+            <span *ngIf="confirmPassword.errors?.mustMatch" class="badge bg-warning">Passwords do not match</span> 
+        </div>
+      </div>
+    </form>
+
+    <button type="submit" id="updateButton" class="btn btn-secondary" [disabled]="updateUserInfoForm?.invalid">{{userInfoUpdateText}}<i class="fa fa-user-o" aria-hidden="true"></i>
+    </button>
+    
+    <div class="ms-1 mt-1">
+    <small><a routerLink="/user-profile" class="text-muted link-secondary"><i  class="fa fa-angle-left"  aria-hidden="true"></i> Return to Profile </a></small>
+  </div>
+    
     </form>
 
   </div>
