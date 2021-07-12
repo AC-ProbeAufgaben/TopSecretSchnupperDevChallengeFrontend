@@ -1,0 +1,33 @@
+<div class="row ">
+    <div class="col-6 offset-md-3 mt-4">
+        <h3>Welcome, {{usersName}}</h3>
+
+        <table class="table bdr table-light table-striped ">
+            <thead>
+                <tr>
+                    <th >name</th>
+                    <th >e-mail</th>
+                    <th class="col-6" >favorite foods</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{userModel?.name}} {{userModel?.lastName}}</td>
+                    <td>{{userModel?.email}}</td>
+                    <td>
+                        <table class="table mb-0 table-sm table-light table-striped" *ngFor='let food of userModel?.favFoods; let i = index'>  
+                            <tbody>
+                            <tr><td> <b>{{i+1}}.</b> {{food.name}} </td></tr>
+                            </tbody> 
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button routerLink='/user-edit' routerLinkActive='active' class="btn btn-secondary">Edit Profile <i class="fa fa-edit" aria-hidden="true"></i>
+        </button>
+   
+    </div>
+</div>
+
