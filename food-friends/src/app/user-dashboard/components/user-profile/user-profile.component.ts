@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 import { AuthServiceService } from 'src/app/auth/auth-service.service';
 import { UserModel } from 'src/app/models/UserModel';
 import { UserService } from 'src/app/services/user.service';
@@ -15,22 +16,25 @@ export class UserProfileComponent implements OnInit {
   usersId: number = 0;
   userModel: UserModel = new UserModel;
 
-  constructor(public authService: AuthServiceService, private http: HttpClient, private userService: UserService) { }
+  constructor(public authService: AuthServiceService, private http: HttpClient, private userService: UserService, private appComp: AppComponent) { }
 
   ngOnInit() {
    this.usersName = this.authService.decodedToken.name; 
    this.usersId = this.authService.decodedToken.id;
 
    console.log('%c<><> USER-PROFILE COMPONENT <><>', this.logColor, '\n', this.usersId, this.usersName);
-
+   
    this.userService.getById(this.usersId).subscribe(
      user => {
        this.userModel = user;
+       if(user.role === 'ROLE_ADMIN') this.appComp.isAdmin = true;
+       console.log(user.role)
       }
     );
-     
+
    return this.userModel;
   }
+
 }
 
 

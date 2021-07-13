@@ -7,6 +7,6 @@ export class UserModel {
     password: string = '';
     email: string = '';
     active: boolean = true;
-    role: string = 'ROLE_USER';
+    role: string = '';
     favFoods?: FavFoods[];
   }

@@ -1,0 +1,62 @@
+<div class="row ">
+    <div class="col-6 offset-md-3 mt-4">
+        <!-- <h3>Welcome, {{usersName}}</h3> -->
+        <!-- <form [formGroup]="updateUserForm" (ngSubmit)="submit()"> -->
+            <table class="table bdr table-light table-striped ">
+                <thead >
+                    <tr>
+                        <th>name</th>
+                        <th>e-mail</th>
+                        <th>role</th>
+                        <th>active</th>
+                        <th class="col-4" >favorite foods</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let user of users;'>
+                        <td>{{user?.name}} {{user?.lastName}}</td>
+                        <td>{{user?.email}}</td>
+                        <td>
+                            <!-- <div *ngIf="user?.role == 'ROLE_ADMIN'; else userRole" >
+
+                            <span class="badge bg-danger text-light">ADMIN!</span>
+                            </div>
+                            <ng-template #userRole>User</ng-template> -->
+
+                            <mat-radio-group aria-label="Select an option"  >
+                                <mat-radio-button *ngFor="let role of roleList;" [checked]="role.val === user.role" (change)="onRoleChange($event, user)" value="{{role.val}}" >{{role.name}}</mat-radio-button>
+                              
+                            </mat-radio-group>
+
+                         
+
+                        </td>
+                        <td>
+                            {{user.name}} is active: {{user?.active}}
+                            <br>
+                            <input [(ngModel)]="user.active" (change)="editUser(user, user.id)" type="checkbox" name="onoffswitch" class="onoffswitch" id="myonoffswitch" >
+                    
+                            
+   
+                    
+                        </td>
+                        <td>
+                            <table class="table mb-0 table-sm" >  
+                                <tbody>
+                                <tr *ngFor='let food of user?.favFoods; let i = index;'>
+                                    <td> <b>{{i+1}}.</b> {{food.name}} </td>
+                                </tr>
+                                </tbody> 
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        <!-- <button routerLink='/user-edit' routerLinkActive='active' class="btn btn-secondary">Edit Profile <i class="fa fa-edit" aria-hidden="true"></i>
+        </button> -->
+        <!-- </form> -->
+    </div>
+</div>
+
+

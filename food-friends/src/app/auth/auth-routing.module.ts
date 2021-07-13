@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminDashboardComponent } from '../user-dashboard/components/admin-dashboard/admin-dashboard.component';
 import { UserEditComponent } from '../user-dashboard/components/user-edit/user-edit.component';
 import { UserProfileComponent } from '../user-dashboard/components/user-profile/user-profile.component';
 import { LoginComponent } from './components/login/login.component';
@@ -10,7 +11,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
-  { path: 'user-edit', component: UserEditComponent, canActivate: [AuthGuard] }
+  { path: 'user-edit', component: UserEditComponent, canActivate: [AuthGuard] },
+  { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] } }
 ];
 
 @NgModule({
