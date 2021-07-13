@@ -13,11 +13,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { MatMenuModule } from '@angular/material/menu';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
     UserEditComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    AdminDashboardComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +35,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule,
+    MatRadioModule
   ],
   exports: [UserEditComponent]
 })

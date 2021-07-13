@@ -28,6 +28,7 @@ export class UserEditComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   foods: Food[] = [];
+  userInfo: UserModel = new UserModel;
 
   // BORING STUFF
   id = this.authService.decodedToken.id;
@@ -76,14 +77,13 @@ export class UserEditComponent implements OnInit {
     });
 
     this.userService.getById(this.id).subscribe(user => { 
-
+      this.userInfo = user;
       user.favFoods?.forEach(food => this.foods.push({name: food.name}))
   
       this.updateUserInfoForm.setValue({
         email: user.email,
         name: user.name,
-        lastName: user.lastName,
-        // favFoodsList: user.favFoods?.map(food => food.name).join(', ') 
+        lastName: user.lastName
       })
     }, error => {
       console.error(error.message); 
@@ -136,7 +136,10 @@ export class UserEditComponent implements OnInit {
     console.log('%c<><>< Update User Info Form ><><>', this.logColor, '\n', this.updateUserInfoForm.value)
 
     let userDetails: FoodFriendsDto = new FoodFriendsDto;
+    // userDetails = this.userInfo;
     userDetails = this.updateUserInfoForm.value;
+    userDetails.role = this.userInfo.role;
+    userDetails.active = this.userInfo.active;
     userDetails.favFoodsList = this.foods.map(food => food.name);
     
     console.log('%c<><>< Update FoodFriedsDTO ><><>', this.logColor, '\n', userDetails)
@@ -144,13 +147,18 @@ export class UserEditComponent implements OnInit {
     this.userSub = this.userService.updateUser(this.id, userDetails).subscribe((result: UserModel) => {
       console.log('%c< RETURNED USER >', this.logColor, result);
       this.userInfoUpdateText = 'User Info Updated! '
-      this.openSnackBar(this.userInfoUpdateText, 'YUMMY!')
+      if (userDetails.email != this.emailLogin) {
+        let sbRef = this.openSnackBar("Success! Please login with new user details", "LOGIN")
+        sbRef.afterDismissed().subscribe(() => {
+          console.log('::::::::::The snack-bar was dismissed'); 
+          this.getNewJwt();
+        })
+      } else {
+        
+        this.openSnackBar(this.userInfoUpdateText, 'YUMMY!')
+      }
     })
 
-    if (userDetails.email != this.emailLogin) {
-      this.getNewJwt();
-      alert("Update Successful. Please login again with new user details :)");
-    }
   }
 
   onClickUpdatePassword() {
@@ -210,13 +218,15 @@ export class UserEditComponent implements OnInit {
   }
 
   getNewJwt() {
+    
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
+    
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 3000,
+    return this._snackBar.open(message, action, {
+      duration: 4000,
       verticalPosition: 'top'
     });
   }

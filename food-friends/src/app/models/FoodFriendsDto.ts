@@ -3,5 +3,7 @@ export class FoodFriendsDto {
     lastName: string = '';
     email: string = '';
     password: string = '';
+    role: string = '';
+    active: boolean = true;
     favFoodsList?: '' | string[];
 }

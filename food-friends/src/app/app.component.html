@@ -9,11 +9,11 @@
         Food Friend Profile
       </a>
       <div class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbarDropdown" *bsDropdownMenu>
+        <a class="dropdown-item link-secondary" routerLink="admin-dashboard" routerLinkActive='active' *ngIf="isAdmin" ><i class="fa fa-user" aria-hidden="true"></i> Go to Admin Dashboard </a>
+        <div class="dropdown-divider" *ngIf="isAdmin" ></div>
         <a class="dropdown-item link-secondary" [routerLink]="['user-profile']" routerLinkActive='active' ><i class="fa fa-user" aria-hidden="true"></i> Go to Profile </a>
         <a class="dropdown-item link-secondary" [routerLink]="['user-edit']" routerLinkActive='active'><i class="fa fa-edit" aria-hidden="true"></i> Edit Profile </a>
         <a class="dropdown-item link-secondary" (click)="logout();" routerLinkActive='active' routerLink='../login'><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Something else here</a>
       </div>
     </li> 
   </ul>
