@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../auth-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'ff-login',
@@ -10,7 +12,7 @@ import { AuthServiceService } from '../../auth-service.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthServiceService, private router: Router) { }
+  constructor(private authService: AuthServiceService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -22,11 +24,22 @@ export class LoginComponent implements OnInit {
         console.log(f.value.username, ' logged in' );
         this.router.navigate(['/user-profile']);
       },
-      error: (err: any) => console.log(err)
+      error: (resp: HttpErrorResponse) => {
+        console.log(resp);
+        this.openSnackBar(resp.error.message, ":(")
+      }
     }
 
     this.authService.login(f.value).subscribe(loginObserver);
-
+    
   }
+
+  openSnackBar(message: string, action: string) {
+    return this._snackBar.open(message, action, {
+      duration: 4000,
+      verticalPosition: 'top'
+    });
+  }
+
 
 }
