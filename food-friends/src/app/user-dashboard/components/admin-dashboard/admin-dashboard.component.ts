@@ -8,7 +8,6 @@ import { MatRadioChange } from '@angular/material/radio';
 export interface Role {
   val: string;
   name: string;
-  checked: boolean;
 }
 
 
@@ -20,8 +19,9 @@ export interface Role {
 export class AdminDashboardComponent implements OnInit {
   users: UserModel[] = [];
   roleList: Role[] = [
-    { val: 'ROLE_ADMIN', name: 'Admin', checked: false },
-    { val: 'ROLE_USER', name: 'User', checked: false }
+    { val: 'ROLE_ADMIN', name: 'Admin'},
+    { val: 'ROLE_USER', name: 'User' },
+    { val: 'ROLE_PEASANT', name: 'Peasant', }
   ];
 
 
@@ -44,7 +44,8 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   editUser(user: UserModel, id: number) {
-    const index = this.users.indexOf(user)
+    const index = this.users.indexOf(user);
+    // this.users.find()
     console.log('<><> CHANGED USER??? >>> ', this.users[index])
     this.userService.updateUser(id, this.users[index]).subscribe((result: UserModel) => {
       console.log(result);

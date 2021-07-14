@@ -1,8 +1,8 @@
 <div class="row ">
     <div class="col-6 offset-md-3 mt-4" >
         <h3>Welcome, {{usersName}}</h3>
-
-        <table class="table bdr table-light table-striped ">
+        
+        <table class="table bdr table-light table-striped " *ngIf="userModel?.role !== 'ROLE_PEASANT'; else peasant">
             <thead>
                 <tr>
                     <th >name</th>
@@ -25,9 +25,26 @@
             </tbody>
         </table>
 
-        <button routerLink='/user-edit' routerLinkActive='active' class="btn btn-secondary">Edit Profile <i class="fa fa-edit" aria-hidden="true"></i>
+        <ng-template #peasant>
+            <table class="table bdr table-light table-striped " >
+                <thead>
+                    <tr>
+                        <th >name</th>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge bg-danger">PEASANT STATUS CONFIRMED!</span><br>
+                        {{userModel?.name}} {{userModel?.lastName}}, you are a peasant. Therefore, you may not access your super cool profile. <br>Upgrade your status, please.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+
+        <button routerLink='/user-edit' routerLinkActive='active' class="btn btn-secondary" disabled="userModel?.role !== 'ROLE_PEASANT'">Edit Profile <i class="fa fa-edit" aria-hidden="true"></i>
         </button>
-   
+
     </div>
 
 </div>
