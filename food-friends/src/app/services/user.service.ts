@@ -6,6 +6,13 @@ import { AuthRequest } from '../models/AuthRequest';
 import { FoodFriendsDto } from '../models/FoodFriendsDto';
 import { Observable } from 'rxjs';
 
+export interface Paginated {
+  totalItems: number;
+  totalPages: number;
+  foodFriends: UserModel[];
+  currentPage: number;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +27,10 @@ export class UserService {
   
   getById(id: number): Observable<UserModel> {
     return this.http.get<UserModel>(`${environment.apiUrl}${id}`);
+  }
+
+  getPaginated(size: number, pageNum: number) {
+    return this.http.get<Paginated>(`http://localhost:8080/search/friends?page=${pageNum}&size=${size}`);
   }
 
   updateUser(id: number, user: FoodFriendsDto): Observable<UserModel> {

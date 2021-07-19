@@ -1,8 +1,107 @@
 <div class="row ">
-    <div class="col-6 offset-md-3 mt-4">
+    <div class="col-8 m-auto mt-4">
+
+
+        <!-- <form #f="ngForm" (ngSubmit)="applyFilter(f)">
+            <div class="row mb-3">
+                <div class="col-sm-2 col-form-label-sm">
+                    <input type="text" name="searchFilter" id="searchFilter" class="form-control" id="searchFilter" placeholder="Filter"
+                    ngModel #searchFilter="ngModel"
+                        class="form-control"
+                    >
+                </div>
+                <div class="col-sm-5 mt-2">
+                    <button type="submit">Submit</button>
+                    <button (click)="resetForm(f)" class="button btn-secondary">Clear</button>
+                </div>
+            </div>
+        </form> -->
+          
+          <div class="example-container mat-elevation-z8">
+            <!-- <form #n="ngForm" (ngSubmit)="getNextFifty(n.value.entryFilter)">
+                <div class="row mb-3">
+                    <div class="col-sm-2 col-form-label-sm">
+                        <input type="number" name="entryFilter" id="entryFilter" class="form-control" id="entryFilter" placeholder="Number"
+                        ngModel #searchFilter="ngModel"
+                            class="form-control"
+                        >
+                        <small class="m-2"> {{totalEntries}} total entries</small>
+                    </div>
+                    <div class="col-sm-5 mt-2">
+                        <button type="submit">Get next entries</button>
+                        <button (click)="resetEntries(n.value.entryFilter)" class="button btn-secondary">Reset Table</button>
+                    </div>
+                    
+                </div>
+            </form> -->
+
+      
+            <mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
+          
+
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+              </ng-container>
+          
+
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+              </ng-container>
+          
+
+              <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+              </ng-container>
+          
+
+              <ng-container matColumnDef="role">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+                <mat-cell *matCellDef="let row" > 
+                    
+                        <!-- <div *ngIf="row.role == 'ROLE_ADMIN';" >
+
+                         <span class="badge bg-danger text-light">ADMIN!</span>
+                        </div> -->
+                        
+
+                        <mat-radio-group aria-label="Select an option"  >
+                            <div *ngFor="let role of roleList;">
+                                <mat-radio-button  [checked]="role.val === row.role" (change)="onRoleChange($event, row)" value="{{role.val}}" >{{role.name}}</mat-radio-button>
+                            </div>
+                        </mat-radio-group> 
+
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="active">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Active </mat-header-cell>
+                <mat-cell *matCellDef="let row" > {{row.active}} 
+
+                    <input [(ngModel)]="row.active" (change)="editUser(row, row.id)" type="checkbox" name="onoffswitch" class="onoffswitch" id="myonoffswitch" >
+                            
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="favoriteFoods">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Favorite Foods </mat-header-cell>
+                <mat-cell *matCellDef="let row" > {{row.favoriteFoods}} </mat-cell>
+              </ng-container>
+          
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;">
+              </mat-row>
+            </mat-table>
+          
+            <mat-paginator [length]="totalEntries" [pageSize]="3" [pageSizeOptions]="[3, 6, 9, 12]"></mat-paginator>
+          </div>
+
+
         <!-- <h3>Welcome, {{usersName}}</h3> -->
         <!-- <form [formGroup]="updateUserForm" (ngSubmit)="submit()"> -->
-            <table class="table bdr table-light table-striped ">
+            <!-- <table class="table bdr table-light table-striped ">
                 <thead >
                     <tr>
                         <th>name</th>
@@ -17,25 +116,25 @@
                         <td>{{user?.name}} {{user?.lastName}}</td>
                         <td>{{user?.email}}</td>
                         <td>
-                            <!-- <div *ngIf="user?.role == 'ROLE_ADMIN'; else userRole" >
+                            <div *ngIf="user?.role == 'ROLE_ADMIN'; else userRole" >
 
                             <span class="badge bg-danger text-light">ADMIN!</span>
                             </div>
-                            <ng-template #userRole>User</ng-template> -->
+                            <ng-template #userRole>User</ng-template>
 
                             <mat-radio-group aria-label="Select an option"  >
                                 <mat-radio-button *ngFor="let role of roleList;" [checked]="role.val === user.role" (change)="onRoleChange($event, user)" value="{{role.val}}" >{{role.name}}</mat-radio-button>
                               
-                            </mat-radio-group>
+                            </mat-radio-group> 
 
-                         
+                        
 
                         </td>
                         <td>
                             {{user.name}} is active: {{user?.active}}
                             <br>
                             <input [(ngModel)]="user.active" (change)="editUser(user, user.id)" type="checkbox" name="onoffswitch" class="onoffswitch" id="myonoffswitch" >
-                    
+                            
                             
    
                     
@@ -51,10 +150,9 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table>  -->
 
-        <!-- <button routerLink='/user-edit' routerLinkActive='active' class="btn btn-secondary">Edit Profile <i class="fa fa-edit" aria-hidden="true"></i>
-        </button> -->
+
         <!-- </form> -->
     </div>
 </div>
