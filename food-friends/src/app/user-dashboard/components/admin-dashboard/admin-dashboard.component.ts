@@ -31,40 +31,27 @@ export class AdminDashboardComponent implements AfterViewInit, OnInit {
     { val: 'ROLE_USER', name: 'User' },
     { val: 'ROLE_PEASANT', name: 'Peasant', }
   ];
-
-  paginatedObject = {};
   totalPages = 0;
   currentPage = 0;
   totalEntries = 0;
 
-
   userSub: Subscription = new Subscription();
-
 
   user!: UserModel;
   dataSource!: BackendDataSource;
   displayedColumns = ['id', 'name', 'email', 'role', 'active', 'favoriteFoods'];
 
-
   @ViewChild(MatPaginator) paginator!: MatPaginator; // MatPaginator 
   @ViewChild(MatSort) sort!: MatSort; // MatSort
 
-  
   constructor(private userService: UserService, private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router, private backendService: PaginatedBackendService, private route: ActivatedRoute) { 
     this.userSub = this.userService.getPaginated(1, 1).subscribe(data => this.totalEntries = data.totalItems);
   }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.paramMap.get("pageNumber"))
-    let pageNumber = this.route.snapshot.paramMap.get("pageNumber")
-    
-    if (pageNumber) {
-      this.currentPage = Number(this.route.snapshot.paramMap.get("pageNumber"));
-    }
     this.dataSource = new BackendDataSource(this.backendService);
     console.log(this.user)
     this.dataSource.loadUsers('', 'asc', 0, 3);
-
   }
 
   ngAfterViewInit() {
@@ -75,17 +62,14 @@ export class AdminDashboardComponent implements AfterViewInit, OnInit {
             tap(() => this.loadUserssPage())
         )
         .subscribe();
-
-
-
-        
   }
 
   loadUserssPage() {
-    console.log(':::: LOAD USERS PAGE ', this.paginator.pageIndex, this.paginator.pageSize)
+    console.log(':::: LOAD USERS PAGE ', this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize)
+
     this.dataSource.loadUsers(
         '',
-        'asc',
+        this.sort.direction,
         this.paginator.pageIndex,
         this.paginator.pageSize);
   } 

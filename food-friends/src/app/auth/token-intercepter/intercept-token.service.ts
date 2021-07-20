@@ -6,8 +6,10 @@ import { Observable } from 'rxjs';
 export class InterceptTokenService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.token; 
+    const token = localStorage.getItem('token'); 
     if (!token) {
+      console.log('%c<><> Token Interceptor <><>', 'color:red', '\nno JWT intercepted')
+
       return next.handle(req);
     }
 

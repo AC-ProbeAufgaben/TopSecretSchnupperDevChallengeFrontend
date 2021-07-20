@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { first } from 'rxjs/operators';
 import { AppComponent } from 'src/app/app.component';
 import { AuthServiceService } from 'src/app/auth/auth-service.service';
 import { UserModel } from 'src/app/models/UserModel';
@@ -14,25 +15,22 @@ export class UserProfileComponent implements OnInit {
   logColor = 'color:cornflowerblue'
   usersName: String = '';  
   usersId: number = 0;
-  userModel: UserModel = new UserModel;
+  userModel = new UserModel;
 
-  constructor(public authService: AuthServiceService, private http: HttpClient, private userService: UserService, private appComp: AppComponent) { }
+  constructor(public authService: AuthServiceService, private http: HttpClient, private userService: UserService, private appComp: AppComponent) {
+
+    this.usersName = this.authService.decodedToken.name; 
+    this.usersId = this.authService.decodedToken.id;
+  }
 
   ngOnInit() {
-   this.usersName = this.authService.decodedToken.name; 
-   this.usersId = this.authService.decodedToken.id;
+   this.userService.getById(this.usersId).subscribe(user => {
+     this.userModel = user;
+     if (this.userModel.role === 'ROLE_ADMIN') this.appComp.isAdmin = true;
 
-   console.log('%c<><> USER-PROFILE COMPONENT <><>', this.logColor, '\n', this.usersId, this.usersName);
-   
-   this.userService.getById(this.usersId).subscribe(
-     user => {
-       this.userModel = user;
-       if(user.role === 'ROLE_ADMIN') this.appComp.isAdmin = true;
-       console.log(user.role)
-      }
-    );
-
-   return this.userModel;
+     console.log('%c<><> USER-PROFILE COMPONENT <><>', this.logColor, '\n', this.usersId, this.usersName, this.userModel);
+    })
+    
   }
 
 }

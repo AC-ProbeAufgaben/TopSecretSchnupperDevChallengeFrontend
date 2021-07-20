@@ -9,7 +9,6 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { UserDashboardModule } from './user-dashboard/user-dashboard.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptTokenService } from './auth/token-intercepter/intercept-token.service';
-import { AuthGuard } from './auth/guard/authguard.service';
 import { FormBuilder, FormsModule } from '@angular/forms';
 
 
@@ -29,8 +28,7 @@ import { FormBuilder, FormsModule } from '@angular/forms';
     UserDashboardModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: InterceptTokenService, multi: true },
-    AuthGuard
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptTokenService, multi: true } 
   ],
   bootstrap: [AppComponent]
 })

@@ -23,18 +23,12 @@ export class AppComponent implements OnInit {
     const token: any = localStorage.getItem('token');
     if(token) {
       this.authService.decodedToken = this.helper.decodeToken(token);
-      const tokenId = this.authService.decodedToken.id;
-
-    this.userService.getById(tokenId).subscribe(user => {
-
-      if(user.role === 'ROLE_ADMIN') this.isAdmin = true
-      else this.isAdmin = false;
-    })
-  }
+      if (this.authService.userValue.role === 'ROLE_ADMIN') this.isAdmin = true
+    }
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.authService.logout();
     this.isAdmin = false;
   }
 }

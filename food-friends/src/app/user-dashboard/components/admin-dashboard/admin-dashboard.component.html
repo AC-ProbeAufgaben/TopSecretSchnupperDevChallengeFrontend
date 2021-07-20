@@ -46,19 +46,19 @@
           
 
               <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Name</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
               </ng-container>
           
 
               <ng-container matColumnDef="email">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef > Email </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
               </ng-container>
           
 
               <ng-container matColumnDef="role">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef > Role </mat-header-cell>
                 <mat-cell *matCellDef="let row" > 
                     
                         <!-- <div *ngIf="row.role == 'ROLE_ADMIN';" >
@@ -77,7 +77,7 @@
               </ng-container>
 
               <ng-container matColumnDef="active">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Active </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef > Active </mat-header-cell>
                 <mat-cell *matCellDef="let row" > {{row.active}} 
 
                     <input [(ngModel)]="row.active" (change)="editUser(row, row.id)" type="checkbox" name="onoffswitch" class="onoffswitch" id="myonoffswitch" >
@@ -86,8 +86,18 @@
               </ng-container>
 
               <ng-container matColumnDef="favoriteFoods">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Favorite Foods </mat-header-cell>
-                <mat-cell *matCellDef="let row" > {{row.favoriteFoods}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> Favorite Foods </mat-header-cell>
+                <mat-cell *matCellDef="let row" > 
+
+                    <div>
+                        <ng-container *ngFor='let food of row.favFoods; let i = index'>
+                          <div>
+                              <span><b>{{i+1}}.</b> {{food.name}}</span>
+                          </div>
+                        </ng-container>
+                    </div>
+
+                </mat-cell>
               </ng-container>
           
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
