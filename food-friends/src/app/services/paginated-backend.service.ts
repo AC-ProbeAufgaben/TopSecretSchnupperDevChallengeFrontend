@@ -21,14 +21,11 @@ export class PaginatedBackendService {
   constructor(private http:HttpClient) {}
 
   findUsers(
-      filter = '', sortOrder: string,
-      pageNumber: number, pageSize: number ):  Observable<UserModel[]> {
+      filter = '', sortOrder= 'asc',
+      pageNumber: number, pageSize: number ):  Observable<BackendResponse> {
+
+        return this.http.get<BackendResponse>(`${environment.paginatedApiUrl}?page=${pageNumber}&size=${pageSize}&direction=${sortOrder}&name=${filter}`)
+        ;
       
-      console.log(sortOrder)
-        
-      return this.http.get<BackendResponse>(`${environment.paginatedApiUrl}?page=${pageNumber}&size=${pageSize}&direction=${sortOrder}`)
-        .pipe(
-          map(res => res.foodFriends)
-        );
   }
 }

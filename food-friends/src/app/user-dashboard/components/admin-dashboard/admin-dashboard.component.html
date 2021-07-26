@@ -17,25 +17,20 @@
             </div>
         </form> -->
           
-          <div class="example-container mat-elevation-z8">
-            <!-- <form #n="ngForm" (ngSubmit)="getNextFifty(n.value.entryFilter)">
-                <div class="row mb-3">
-                    <div class="col-sm-2 col-form-label-sm">
-                        <input type="number" name="entryFilter" id="entryFilter" class="form-control" id="entryFilter" placeholder="Number"
-                        ngModel #searchFilter="ngModel"
-                            class="form-control"
-                        >
-                        <small class="m-2"> {{totalEntries}} total entries</small>
-                    </div>
-                    <div class="col-sm-5 mt-2">
-                        <button type="submit">Get next entries</button>
-                        <button (click)="resetEntries(n.value.entryFilter)" class="button btn-secondary">Reset Table</button>
-                    </div>
-                    
-                </div>
-            </form> -->
+        <form class="filter-form">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Search Users</mat-label>
+              <input matInput placeholder="Filter Users" #input>
+            </mat-form-field>
+        </form>
+    
+        <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+            <mat-spinner></mat-spinner>
+        </div>
 
-      
+          <div class="example-container mat-elevation-z8">
+
+
             <mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
           
 
@@ -105,7 +100,7 @@
               </mat-row>
             </mat-table>
           
-            <mat-paginator [length]="totalEntries" [pageSize]="3" [pageSizeOptions]="[3, 6, 9, 12]"></mat-paginator>
+            <mat-paginator [length]="dataSource.totalEntriesValue" [pageSize]="3" [pageSizeOptions]="[3, 6, 9, 12]"></mat-paginator>
           </div>
 
 

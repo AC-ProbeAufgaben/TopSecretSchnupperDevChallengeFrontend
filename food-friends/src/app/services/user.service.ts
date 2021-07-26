@@ -40,4 +40,11 @@ export class UserService {
   changePassword(id: number, authRequest: AuthRequest): Observable<UserModel> {
     return this.http.put<UserModel>(`${environment.apiUrl}edit-password/${id}`, authRequest);
   }
+
+  postResetPasswordEmail(email: string): Observable<String> {
+    const resetPassRequest = {
+      email: email
+    }
+    return this.http.post<String>(`${environment.resetPassUrl}/`, resetPassRequest)
+  }
 }
