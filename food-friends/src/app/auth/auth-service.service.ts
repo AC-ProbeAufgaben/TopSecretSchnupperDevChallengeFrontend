@@ -7,13 +7,15 @@ import { UserModel } from '../models/UserModel';
 import { UserService } from '../services/user.service';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { SecurityQuestion } from './components/register/register.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
   authUrl = "http://localhost:8080/auth/authenticate";
-  regUrl = "http://localhost:8080/friends/add";
+  regUrl = "http://localhost:8080/friends";
+  resetPasswordUrl = "http://localhost:8080/reset-password"
   helper = new JwtHelperService();
   decodedToken: DecodedToken = new DecodedToken;
  
@@ -58,10 +60,14 @@ export class AuthServiceService {
     })
   }
 
+  getSecurityQuestions(): Observable<SecurityQuestion[]> {
+    return this.http.get<SecurityQuestion[]>(this.resetPasswordUrl + "/security-questions")
+  }
+
   register(model: any) {
     model.active = true;
     model.role = 'ROLE_USER';
-    return this.http.post(this.regUrl, model)
+    return this.http.post(this.regUrl + "/add", model)
   }
 
   notLoggedIn() {

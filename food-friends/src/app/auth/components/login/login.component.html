@@ -15,10 +15,16 @@
               <input type="password" name="password" ngModel required #password="ngModel"
                 class="form-control" id="loginPassword" placeholder="Password">
             </div>
-            
+
             <button type="submit" [disabled]="f.invalid" class="btn btn-primary">Login <i class="fa fa-sign-in" aria-hidden="true"></i>
             </button>
-            <small> <a class='nav-link' routerLinkActive='active' routerLink='../register'>New? Register Here.</a></small>
           </form>
+
+          <div class="ms-1 mt-1">
+            <small> <a class="link-primary" routerLinkActive='active' routerLink='../register'>New? Register Here <i  class="fa fa-angle-right"  aria-hidden="true"></i></a></small>
+
+            <small *ngIf="failedAttempts >= 1"> <a class='nav-link' routerLinkActive='active' routerLink='../reset-password'>Forgot Password? Reset password here</a></small>
+          </div>
+          
     </div>
 </div>

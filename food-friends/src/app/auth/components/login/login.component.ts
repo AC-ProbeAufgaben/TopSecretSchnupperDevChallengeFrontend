@@ -13,10 +13,12 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  failedAttempts = 0;
 
   constructor(private authService: AuthServiceService, private userService: UserService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.failedAttempts = 0;
   }
 
   onSubmit(f: NgForm) {
@@ -30,6 +32,7 @@ export class LoginComponent implements OnInit {
       error: (resp: HttpErrorResponse) => {
         console.log(resp);
         this.openSnackBar(resp.error.message, ":(")
+        this.failedAttempts++
       }
     }
 

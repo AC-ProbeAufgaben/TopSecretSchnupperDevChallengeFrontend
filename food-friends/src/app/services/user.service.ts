@@ -47,4 +47,13 @@ export class UserService {
     }
     return this.http.post<String>(`${environment.resetPassUrl}/`, resetPassRequest)
   }
+
+  confirmResetPasswordToken(token: string): Observable<UserModel> {
+    return this.http.get<UserModel>(`${environment.resetPassUrl}/reset?token=${token}`)
+  } 
+
+  resetForgottenPassword(form: any) {
+    return this.http.post<UserModel>(`${environment.resetPassUrl}/reset`, form)
+  }
+  
 }

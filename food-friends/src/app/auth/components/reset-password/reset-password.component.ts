@@ -38,7 +38,7 @@ export class ResetPasswordComponent implements OnInit {
       error: (err: any) => {
         this.loading = false;
         console.log(err);
-        this.openSnackBar('Error occurred', 'Whoops :/') 
+        this.openSnackBar(err.error.message, 'Whoops :/') 
       }
     }
     
