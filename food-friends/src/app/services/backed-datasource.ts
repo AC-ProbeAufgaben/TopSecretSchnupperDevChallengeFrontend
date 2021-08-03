@@ -26,7 +26,7 @@ export class BackendDataSource implements DataSource<UserModel> {
 
     public get totalEntriesValue(): number {
         return this.totalEntriesSubject.value;
-      }
+    }
 
     loadUsers( filter= '',
                 sortDirection= 'asc', pageIndex: number, pageSize: number) {

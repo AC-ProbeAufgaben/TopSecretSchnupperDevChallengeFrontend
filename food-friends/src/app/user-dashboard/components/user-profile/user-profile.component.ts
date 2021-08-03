@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
 import { AppComponent } from 'src/app/app.component';
 import { AuthServiceService } from 'src/app/auth/auth-service.service';
 import { UserModel } from 'src/app/models/UserModel';

@@ -8,14 +8,12 @@
                 <input type="text" name="name" ngModel required #name="ngModel"
                   class="form-control" id="registerName" placeholder="Enter name">
             </div>
-            <p>{{f.value.name}}</p>
 
             <div class="form-group" style="margin-bottom: 10px;">
                 <label for="registerLastName">Last Name</label>
-                <input type="text" name="lastName" ngModel required #name="ngModel"
+                <input type="text" name="lastName" ngModel required #lastName="ngModel"
                   class="form-control" id="registerLastName" placeholder="Enter Last Name">
             </div>
-            <p>{{f.value.lastName}}</p>
 
             <div class="form-group" style="margin-bottom: 10px;">
                 <label for="registerUsername">Email address</label>
@@ -44,12 +42,12 @@
               </div>              
             </div>
 
-            
             <button type="submit" [disabled]="f.invalid" class="btn btn-primary">Register <i class="fa fa-sign-in" aria-hidden="true"></i>
             </button>
           </form>
         
-          <small> <a class='link-secondary' routerLinkActive='active' routerLink='../login'><i  class="fa fa-angle-left"  aria-hidden="true"></i> Already a Food Friend? Login Here.</a></small>
-        
+          <div class="ms-1 mt-1">
+            <small> <a class='link-secondary' routerLinkActive='active' routerLink='../login'><i  class="fa fa-angle-left"  aria-hidden="true"></i> Already a Food Friend? Login Here.</a></small>
+          </div>
         </div>
 </div>

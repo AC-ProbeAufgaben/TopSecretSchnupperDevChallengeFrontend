@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 import { UserService } from 'src/app/services/user.service';
 import { AuthServiceService } from '../../auth-service.service';
 import { SecurityQuestion } from '../register/register.component';
@@ -17,29 +17,26 @@ export class ResetPasswordConfirmComponent implements OnInit {
   emailFromToken: string = '';
   isConfirmed = false;
 
-  default= 'choose your question: ';
-
   updatePasswordForm: FormGroup = new FormGroup({});
   newPassword: FormControl = new FormControl;
   confirmPassword: FormControl = new FormControl;
   securityQuestionId: FormControl = new FormControl;
   securityQuestionAnswer: FormControl = new FormControl;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,  private fb: FormBuilder, private authService: AuthServiceService, private _snackBar: MatSnackBar) {}
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,  private fb: FormBuilder, private authService: AuthServiceService, private _snackBar: SnackbarService) {}
 
   ngOnInit(): void {
-
     this.route.queryParams.subscribe(param => this.tokenFromParams = param.token)
     this.userService.confirmResetPasswordToken(this.tokenFromParams).subscribe({
       next: (x: any) => {
         console.log(x)
         this.emailFromToken = x.email;
-        this.openSnackBar('Confirmed! Please reset password', 'OK!');
+        this._snackBar.openSnackBar('Confirmed! Please reset password', 'OK!');
         this.isConfirmed = true;
       },
       error: (err: any) => {
         console.log(err);
-        this.openSnackBar(err.error.message , 'Whoops :/') ;
+        this._snackBar.openSnackBar(err.error.message , 'Whoops :/') ;
         this.isConfirmed = false;
       }
     })
@@ -63,8 +60,6 @@ export class ResetPasswordConfirmComponent implements OnInit {
 
   }
 
-  // CLEAN UP THIS STUFF!!! :>:>::>:>:> :):):)
-
   onSubmit() {
 
     const updatePassDetails = {
@@ -76,22 +71,19 @@ export class ResetPasswordConfirmComponent implements OnInit {
 
     const resetPasswordObserver = {
       next: (x: any) => {
-
-        this.openSnackBar('Success! Please login with new password', 'WOOHOO!');
+        this._snackBar.openSnackBar('Success! Please login with new password', 'WOOHOO!');
         setTimeout(() => this.router.navigate(['/login']), 1700) 
       },
-      error: (err: any) => console.log(err)
+      
+      error: (err: any) => {
+        this._snackBar.openSnackBar(err.error.message, ':/');
+        console.log(err);
+      }
     }
 
     this.userService.resetForgottenPassword(updatePassDetails).subscribe(resetPasswordObserver)
   }
 
-  openSnackBar(message: string, action: string) {
-    return this._snackBar.open(message, action, {
-      duration: 4000,
-      verticalPosition: 'top'
-    });
-  }
 
   checkPasswords(firstControl: AbstractControl): ValidatorFn {
     return (

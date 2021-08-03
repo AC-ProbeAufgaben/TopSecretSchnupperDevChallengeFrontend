@@ -5,7 +5,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { DecodedToken } from '../models/DecodedToken';
 import { UserModel } from '../models/UserModel';
 import { UserService } from '../services/user.service';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { SecurityQuestion } from './components/register/register.component';
 
@@ -15,7 +15,8 @@ import { SecurityQuestion } from './components/register/register.component';
 export class AuthServiceService {
   authUrl = "http://localhost:8080/auth/authenticate";
   regUrl = "http://localhost:8080/friends";
-  resetPasswordUrl = "http://localhost:8080/reset-password"
+  resetPasswordUrl = "http://localhost:8080/reset-password";
+
   helper = new JwtHelperService();
   decodedToken: DecodedToken = new DecodedToken;
  

@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserModel } from 'src/app/models/UserModel';
 import { UserService } from 'src/app/services/user.service';
-import { FormBuilder, FormGroup, FormControl, FormArray } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BackendDataSource } from 'src/app/services/backed-datasource';
 import { PaginatedBackendService } from 'src/app/services/paginated-backend.service';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 export interface Role {
   val: string;
@@ -43,7 +43,7 @@ export class AdminDashboardComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort) sort!: MatSort; // MatSort
   @ViewChild('input') input!: ElementRef; //MatInput
 
-  constructor(private userService: UserService, private fb: FormBuilder, private _snackBar: MatSnackBar, private router: Router, private backendService: PaginatedBackendService, private route: ActivatedRoute) { 
+  constructor(private userService: UserService, private fb: FormBuilder, private _snackBar: SnackbarService, private router: Router, private backendService: PaginatedBackendService, private route: ActivatedRoute) { 
     this.userSub = this.userService.getPaginated(1, 1).subscribe(data => this.totalEntries = data.totalItems);
     
   }
@@ -92,7 +92,7 @@ export class AdminDashboardComponent implements AfterViewInit, OnInit {
     console.log('<><> CHANGED USER??? >>> ', user)
     this.userService.updateUser(id, user).subscribe((result: UserModel) => {
       console.log(result);
-      this.openSnackBar('User Updated', 'Admins FTW 🤘')
+      this._snackBar.openSnackBar('User Updated', 'Admins FTW 🤘')
     })
   }
 
@@ -104,15 +104,10 @@ export class AdminDashboardComponent implements AfterViewInit, OnInit {
     console.log('<><> CHANGED USER??? >>> ', user)
     this.userService.updateUser(user.id, user).subscribe((result: UserModel) => {
       console.log(result);
-      this.openSnackBar('User Updated', 'Admins FTW 🤘')
+      this._snackBar.openSnackBar('User Updated', 'Admins FTW 🤘')
     })
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 3000,
-      verticalPosition: 'top'
-    });
-  }
+
 
 }

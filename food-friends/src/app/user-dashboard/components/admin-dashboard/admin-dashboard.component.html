@@ -1,21 +1,5 @@
 <div class="row ">
     <div class="col-8 m-auto mt-4">
-
-
-        <!-- <form #f="ngForm" (ngSubmit)="applyFilter(f)">
-            <div class="row mb-3">
-                <div class="col-sm-2 col-form-label-sm">
-                    <input type="text" name="searchFilter" id="searchFilter" class="form-control" id="searchFilter" placeholder="Filter"
-                    ngModel #searchFilter="ngModel"
-                        class="form-control"
-                    >
-                </div>
-                <div class="col-sm-5 mt-2">
-                    <button type="submit">Submit</button>
-                    <button (click)="resetForm(f)" class="button btn-secondary">Clear</button>
-                </div>
-            </div>
-        </form> -->
           
         <form class="filter-form">
             <mat-form-field class="example-full-width" appearance="fill">
@@ -55,12 +39,6 @@
               <ng-container matColumnDef="role">
                 <mat-header-cell *matHeaderCellDef > Role </mat-header-cell>
                 <mat-cell *matCellDef="let row" > 
-                    
-                        <!-- <div *ngIf="row.role == 'ROLE_ADMIN';" >
-
-                         <span class="badge bg-danger text-light">ADMIN!</span>
-                        </div> -->
-                        
 
                         <mat-radio-group aria-label="Select an option"  >
                             <div *ngFor="let role of roleList;">
@@ -103,62 +81,6 @@
             <mat-paginator [length]="dataSource.totalEntriesValue" [pageSize]="3" [pageSizeOptions]="[3, 6, 9, 12]"></mat-paginator>
           </div>
 
-
-        <!-- <h3>Welcome, {{usersName}}</h3> -->
-        <!-- <form [formGroup]="updateUserForm" (ngSubmit)="submit()"> -->
-            <!-- <table class="table bdr table-light table-striped ">
-                <thead >
-                    <tr>
-                        <th>name</th>
-                        <th>e-mail</th>
-                        <th>role</th>
-                        <th>active</th>
-                        <th class="col-4" >favorite foods</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor='let user of users;'>
-                        <td>{{user?.name}} {{user?.lastName}}</td>
-                        <td>{{user?.email}}</td>
-                        <td>
-                            <div *ngIf="user?.role == 'ROLE_ADMIN'; else userRole" >
-
-                            <span class="badge bg-danger text-light">ADMIN!</span>
-                            </div>
-                            <ng-template #userRole>User</ng-template>
-
-                            <mat-radio-group aria-label="Select an option"  >
-                                <mat-radio-button *ngFor="let role of roleList;" [checked]="role.val === user.role" (change)="onRoleChange($event, user)" value="{{role.val}}" >{{role.name}}</mat-radio-button>
-                              
-                            </mat-radio-group> 
-
-                        
-
-                        </td>
-                        <td>
-                            {{user.name}} is active: {{user?.active}}
-                            <br>
-                            <input [(ngModel)]="user.active" (change)="editUser(user, user.id)" type="checkbox" name="onoffswitch" class="onoffswitch" id="myonoffswitch" >
-                            
-                            
-   
-                    
-                        </td>
-                        <td>
-                            <table class="table mb-0 table-sm" >  
-                                <tbody>
-                                <tr *ngFor='let food of user?.favFoods; let i = index;'>
-                                    <td> <b>{{i+1}}.</b> {{food.name}} </td>
-                                </tr>
-                                </tbody> 
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>  -->
-
-
-        <!-- </form> -->
     </div>
 </div>
 

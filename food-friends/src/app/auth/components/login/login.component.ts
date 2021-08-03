@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../auth-service.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
-import { map } from 'rxjs/operators';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'ff-login',
@@ -15,7 +14,7 @@ import { map } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   failedAttempts = 0;
 
-  constructor(private authService: AuthServiceService, private userService: UserService, private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(private authService: AuthServiceService, private userService: UserService, private router: Router, private _snackBar: SnackbarService) { }
 
   ngOnInit(): void {
     this.failedAttempts = 0;
@@ -31,22 +30,15 @@ export class LoginComponent implements OnInit {
       },
       error: (resp: HttpErrorResponse) => {
         console.log(resp);
-        this.openSnackBar(resp.error.message, ":(")
+        this._snackBar.openSnackBar(resp.error.message, ":(")
         this.failedAttempts++
       }
     }
 
     this.authService.login(f.value).subscribe(loginObserver);
 
-    
   }
 
-  openSnackBar(message: string, action: string) {
-    return this._snackBar.open(message, action, {
-      duration: 4000,
-      verticalPosition: 'top'
-    });
-  }
 
 
 }
