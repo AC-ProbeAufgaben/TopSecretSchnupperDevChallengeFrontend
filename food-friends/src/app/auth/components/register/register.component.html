@@ -8,14 +8,12 @@
                 <input type="text" name="name" ngModel required #name="ngModel"
                   class="form-control" id="registerName" placeholder="Enter name">
             </div>
-            <p>{{f.value.name}}</p>
 
             <div class="form-group" style="margin-bottom: 10px;">
                 <label for="registerLastName">Last Name</label>
-                <input type="text" name="lastName" ngModel required #name="ngModel"
+                <input type="text" name="lastName" ngModel required #lastName="ngModel"
                   class="form-control" id="registerLastName" placeholder="Enter Last Name">
             </div>
-            <p>{{f.value.lastName}}</p>
 
             <div class="form-group" style="margin-bottom: 10px;">
                 <label for="registerUsername">Email address</label>
@@ -28,10 +26,28 @@
               <input type="password" name="password" ngModel required #password="ngModel"
                 class="form-control" id="registerPassword" placeholder="Password">
             </div>
-            
+            <p></p>
+
+            <div class="form-inline" style="margin-bottom: 10px;">
+              <div class="input-group mb-2 me-sm-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text " for="registerSecurityQuestion">Security Question:</div>
+                </div>
+                <select class="custom-select mb-2 me-sm-2" id="registerSecurityQuestion" name="securityQuestionId" [(ngModel)]="securityQuestionId" > 
+                  <option value='-1' disabled >Select your option</option>
+                  <option *ngFor='let q of securityQuestions;' [value]="q.id" >{{q.question}}</option>
+                </select>
+                <input type="text" name="securityAnswer" ngModel required #securityAnswer="ngModel"
+                class="form-control mb-2 mr-sm-2" id="registerSecurityAnswer" placeholder="Answer your choosen question">
+              </div>              
+            </div>
+
             <button type="submit" [disabled]="f.invalid" class="btn btn-primary">Register <i class="fa fa-sign-in" aria-hidden="true"></i>
             </button>
-            <small> <a class='nav-link' routerLinkActive='active' routerLink='../login'>Already a Food Friend? Login Here.</a></small>
           </form>
-    </div>
+        
+          <div class="ms-1 mt-1">
+            <small> <a class='link-secondary' routerLinkActive='active' routerLink='../login'><i  class="fa fa-angle-left"  aria-hidden="true"></i> Already a Food Friend? Login Here.</a></small>
+          </div>
+        </div>
 </div>

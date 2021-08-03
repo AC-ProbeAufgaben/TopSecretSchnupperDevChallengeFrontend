@@ -40,4 +40,13 @@ export class UserService {
   changePassword(id: number, authRequest: AuthRequest): Observable<UserModel> {
     return this.http.put<UserModel>(`${environment.apiUrl}edit-password/${id}`, authRequest);
   }
+
+  confirmResetPasswordToken(token: string): Observable<UserModel> {
+    return this.http.get<UserModel>(`${environment.resetPassUrl}/reset?token=${token}`)
+  } 
+
+  resetForgottenPassword(form: any) {
+    return this.http.post<UserModel>(`${environment.resetPassUrl}/reset`, form)
+  }
+  
 }

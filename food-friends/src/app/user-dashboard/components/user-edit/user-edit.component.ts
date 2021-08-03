@@ -7,10 +7,9 @@ import { AuthServiceService } from 'src/app/auth/auth-service.service';
 import { FoodFriendsDto } from 'src/app/models/FoodFriendsDto';
 import { UserModel } from 'src/app/models/UserModel';
 import { UserService } from 'src/app/services/user.service';
-
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 export interface Food {
   name: string;
@@ -61,7 +60,7 @@ export class UserEditComponent implements OnInit {
     private userService: UserService, 
     private authService: AuthServiceService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: SnackbarService
     ) { }
 
   ngOnInit(): void {
@@ -121,7 +120,7 @@ export class UserEditComponent implements OnInit {
           error: (err: HttpErrorResponse) => {
             this.updatePassText = err.error.message;
             console.log(err);
-            this.openSnackBar(err.error.message, 'Merp')
+            this._snackBar.openSnackBar(err.error.message, 'Merp')
 
           }
         };
@@ -136,7 +135,7 @@ export class UserEditComponent implements OnInit {
     console.log('%c<><>< Update User Info Form ><><>', this.logColor, '\n', this.updateUserInfoForm.value)
 
     let userDetails: FoodFriendsDto = new FoodFriendsDto;
-    // userDetails = this.userInfo;
+
     userDetails = this.updateUserInfoForm.value;
     userDetails.role = this.userInfo.role;
     userDetails.active = this.userInfo.active;
@@ -148,14 +147,14 @@ export class UserEditComponent implements OnInit {
       console.log('%c< RETURNED USER >', this.logColor, result);
       this.userInfoUpdateText = 'User Info Updated! '
       if (userDetails.email != this.emailLogin) {
-        let sbRef = this.openSnackBar("Success! Please login with new user details", "LOGIN")
+        let sbRef = this._snackBar.openSnackBar("Success! Please login with new user details", "LOGIN")
         sbRef.afterDismissed().subscribe(() => {
           console.log('::::::::::The snack-bar was dismissed'); 
           this.getNewJwt();
         })
       } else {
         
-        this.openSnackBar(this.userInfoUpdateText, 'YUMMY!')
+        this._snackBar.openSnackBar(this.userInfoUpdateText, 'YUMMY!')
       }
     })
 
@@ -222,13 +221,6 @@ export class UserEditComponent implements OnInit {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
     
-  }
-
-  openSnackBar(message: string, action: string) {
-    return this._snackBar.open(message, action, {
-      duration: 4000,
-      verticalPosition: 'top'
-    });
   }
 
   onDestroy() {

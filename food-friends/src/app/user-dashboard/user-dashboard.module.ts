@@ -21,6 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CdkTableModule } from '@angular/cdk/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { CdkTableModule } from '@angular/cdk/table';
     MatRadioModule,
     MatSortModule,
     MatTableModule,
+    MatProgressSpinnerModule,
     MatPaginatorModule,
     MatInputModule,
     CdkTableModule

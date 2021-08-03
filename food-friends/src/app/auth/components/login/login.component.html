@@ -11,14 +11,18 @@
             </div>
 
             <div class="form-group" style="margin-bottom: 10px;">
-              <label for="loginPassword">Password</label>
+              <label for="loginPassword" *ngIf="!failedAttempts">Password  </label><small *ngIf="failedAttempts >= 1"> <a class='link-danger' routerLinkActive='active' routerLink='../reset-password'>Forgot Password? Reset password here</a></small>
               <input type="password" name="password" ngModel required #password="ngModel"
                 class="form-control" id="loginPassword" placeholder="Password">
             </div>
-            
+
             <button type="submit" [disabled]="f.invalid" class="btn btn-primary">Login <i class="fa fa-sign-in" aria-hidden="true"></i>
             </button>
-            <small> <a class='nav-link' routerLinkActive='active' routerLink='../register'>New? Register Here.</a></small>
           </form>
+
+          <div class="ms-1 mt-1">
+            <small> <a class="link-primary" routerLinkActive='active' routerLink='../register'>New? Register Here <i  class="fa fa-angle-right"  aria-hidden="true"></i></a></small>
+          </div>
+          
     </div>
 </div>

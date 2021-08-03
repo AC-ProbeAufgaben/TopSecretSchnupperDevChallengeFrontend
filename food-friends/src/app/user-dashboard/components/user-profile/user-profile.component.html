@@ -42,7 +42,7 @@
             </table>
         </ng-template>
 
-        <button routerLink='/user-edit' routerLinkActive='active' class="btn btn-secondary" disabled="userModel?.role !== 'ROLE_PEASANT'">Edit Profile <i class="fa fa-edit" aria-hidden="true"></i>
+        <button routerLink='/user-edit' routerLinkActive='active' class="btn btn-secondary" [disabled]="userModel.role == 'ROLE_PEASANT'">Edit Profile <i class="fa fa-edit" aria-hidden="true"></i>
         </button>
 
     </div>

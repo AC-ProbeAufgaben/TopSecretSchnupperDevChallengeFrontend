@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: "http://localhost:8080/friends/",
-  paginatedApiUrl: "http://localhost:8080/search/friends"
+  paginatedApiUrl: "http://localhost:8080/search/friends",
+  resetPassUrl: "http://localhost:8080/reset-password"
 };
 
 /*
